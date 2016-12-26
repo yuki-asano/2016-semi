@@ -33,6 +33,7 @@ std::map<std::string, int> objects_map =
 int main(int argc, char **argv)
 {
   char str[100];
+  std::string old_str;
   
   // open -------------------------------------------------------------------
   int ret;
@@ -64,15 +65,26 @@ int main(int argc, char **argv)
   while(1){
     fscanf(stdin, "%s", str);
     fprintf(stdout, "%s\n", str);
-    if(!strcmp(str, "hogescrewdriver")){
+
+    std::string new_str = str;
+      
+    if((objects_map.find(new_str) != objects_map.end()) && (new_str != old_str)){
       printf("OK\n");
-      //      shake_hand();
-      call_motion(3);
-      exit(0);
-    }
-    else
+      call_motion(objects_map[new_str]);
+    } else {
       printf("NG\n");
-    //
+    }
+
+    old_str = new_str;
+    // if(!strcmp(str, "hogescrewdriver")){
+    //   printf("OK\n");
+    //   //      shake_hand();
+    //   call_motion(objects_map["hogescrewdriver"]);
+    //   exit(0);
+    // }
+    // else
+    //   printf("NG\n");
+    // //
   }
   // close ------------------------------------------------------------------
   ret = kondo_close(&ki);
