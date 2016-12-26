@@ -6,6 +6,7 @@ extern "C" {
 #include <khr_driver/khr_utils.h>
 #include <iostream>
 #include <math.h>
+#include <map>
 
 extern KondoInstance ki;
 unsigned char servo_gain[] = {0x01, 0x01, 0x01, 0x01, 0x01,
@@ -19,6 +20,15 @@ unsigned char servo_gain_hard[] = {0x01, 0x04, 0x07, 0x07, 0x07,
                                    0x06, 0x03, 0x03, 0x03, 0x03,
                                    0x03, 0x03};
 
+//char* objects_class[] = {"screwdriver", "dumbel"};
+std::map<std::string, int> objects_map =
+  {
+    {"camera", 0},
+    {"dumbel", 1},
+    {"kojiro", 2},
+    {"hogescrewdriver", 3},
+  };
+  
 // argv[1]: 使用するKHRのindex（省略した場合は0）
 int main(int argc, char **argv)
 {
@@ -56,7 +66,8 @@ int main(int argc, char **argv)
     fprintf(stdout, "%s\n", str);
     if(!strcmp(str, "hogescrewdriver")){
       printf("OK\n");
-      shake_hand();
+      //      shake_hand();
+      call_motion(3);
       exit(0);
     }
     else

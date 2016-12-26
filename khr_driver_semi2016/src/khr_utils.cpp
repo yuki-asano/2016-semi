@@ -3,6 +3,29 @@
 
 KondoInstance ki;
 
+
+
+int call_motion(int i) {
+  ki.swap[0] = 0x07;
+  ki.swap[1] = 0x0C;
+
+  int adr = 0x380 + 0x800 * i;
+
+  ki.swap[2] = 0xff & adr;
+  ki.swap[3] = 0xff & (adr>>8);
+  ki.swap[4] = 0xff & (adr>>16);
+
+  //  printf("kkkkkkkkkkkkkkkkkkkkk %x %x %x\n", ki.swap[2], ki.swap[3], ki.swap[4]);
+  
+  ki.swap[5] = 0x00;
+  ki.swap[6] = kondo_checksum(&ki, 6);
+
+  //  printf("checksum %x\n", ki.swap[6]);
+    
+  return kondo_trx(&ki, 7, 4);
+}
+
+
 // Windowsで頭を動かしたときのコマンドを真似してみる。
 // これで動く。
 int windows_head_move() {

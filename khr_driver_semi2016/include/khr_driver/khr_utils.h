@@ -12,6 +12,7 @@ extern "C" {
 #define SERVO_NEWTRAL_POSITION 7500
 #define KHR_DOF 22
 
+int call_motion(int i);
 int windows_head_move();
 int shake_hand();
 void error(KondoRef ki);
